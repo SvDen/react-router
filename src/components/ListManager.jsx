@@ -29,10 +29,18 @@ var ListManager = React.createClass({
             marginTop: 10
         };
 
+        var headingStyle = {
+
+        };
+
+        if (this.props.headingColor) {
+            headingStyle.background = this.props.headingColor;
+        }
+
         return (
             <div style={divStyle} className="col-sm-4">
                 <div className="panel panel-primary">
-                    <div className="panel-heading">
+                    <div style={headingStyle} className="panel-heading">
                         <h3>{this.props.title}</h3>
                     </div>
                     <div className="row panel-body">
@@ -45,8 +53,8 @@ var ListManager = React.createClass({
                                 <button className="btn btn-primary">Add</button>
                             </div>
                         </form>
-                        <List items={this.state.items}/>
                     </div>
+                    <List items={this.state.items}/>
                 </div>
             </div>
         )
