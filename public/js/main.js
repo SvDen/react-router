@@ -20759,13 +20759,11 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ListItem = require('./ListItem.jsx');
 
-var ingredients = [{ "id": 1, "text": "ham" }, { "id": 2, "text": "cheese" }, { "id": 3, "text": "potatos" }];
-
 var List = React.createClass({
     displayName: 'List',
 
     render() {
-        var listItems = ingredients.map(item => React.createElement(ListItem, { key: item.id, ingredient: item.text }));
+        var listItems = this.props.items.map(item => React.createElement(ListItem, { key: Math.random(), text: item }));
 
         return React.createElement(
             'ul',
@@ -20790,7 +20788,7 @@ var ListItem = React.createClass({
             React.createElement(
                 'h4',
                 null,
-                this.props.ingredient
+                this.props.text
             )
         );
     }
@@ -20800,9 +20798,91 @@ module.exports = ListItem;
 
 },{"react":171}],174:[function(require,module,exports){
 var React = require('react');
+var List = require('./List.jsx');
+
+var ListManager = React.createClass({
+    displayName: 'ListManager',
+
+    getInitialState() {
+        return {
+            items: [],
+            newItemText: ''
+        };
+    },
+    handleSubmit(e) {
+        e.preventDefault();
+
+        var currentItems = this.state.items;
+        currentItems.push(this.state.newItemText);
+        this.setState({
+            items: currentItems,
+            newItemText: ''
+        });
+    },
+    onChange(e) {
+        this.setState({
+            newItemText: e.target.value
+        });
+    },
+    render() {
+
+        var divStyle = {
+            marginTop: 10
+        };
+
+        return React.createElement(
+            'div',
+            { style: divStyle, className: 'col-sm-4' },
+            React.createElement(
+                'div',
+                { className: 'panel panel-primary' },
+                React.createElement(
+                    'div',
+                    { className: 'panel-heading' },
+                    React.createElement(
+                        'h3',
+                        null,
+                        this.props.title
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'row panel-body' },
+                    React.createElement(
+                        'form',
+                        { onSubmit: this.handleSubmit },
+                        React.createElement(
+                            'div',
+                            { className: 'col-sm-9' },
+                            React.createElement('input', { className: 'form-control', onChange: this.onChange,
+                                value: this.state.newItemText })
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'col-sm-2' },
+                            React.createElement(
+                                'button',
+                                { className: 'btn btn-primary' },
+                                'Add'
+                            )
+                        )
+                    ),
+                    React.createElement(List, { items: this.state.items })
+                )
+            )
+        );
+    }
+});
+
+module.exports = ListManager;
+
+},{"./List.jsx":172,"react":171}],175:[function(require,module,exports){
+var React = require('react');
 var ReactDOM = require('react-dom');
-var List = require('./components/List.jsx');
+var ListManager = require('./components/ListManager.jsx');
 
-ReactDOM.render(React.createElement(List, null), document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(ListManager, { title: 'Nice title' }), document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(ListManager, { title: 'ToDo' }), document.getElementById('todo'));
+ReactDOM.render(React.createElement(ListManager, { title: 'Christmas List' }), document.getElementById('christmas'));
 
-},{"./components/List.jsx":172,"react":171,"react-dom":28}]},{},[174]);
+},{"./components/ListManager.jsx":174,"react":171,"react-dom":28}]},{},[175]);
