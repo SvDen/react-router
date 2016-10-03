@@ -26924,9 +26924,9 @@ var createHashHistory = require('history/lib/createHashHistory');
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
-var Base = require('./components/Base.jsx');
-var Page1 = require('./components/Page1.jsx');
-var Page2 = require('./components/Page2.jsx');
+var Base = require('./pages/Base.jsx');
+var News = require('./pages/News.jsx');
+var Photos = require('./pages/Photos.jsx');
 
 var Routes = React.createElement(
     Router,
@@ -26934,206 +26934,149 @@ var Routes = React.createElement(
     React.createElement(
         Route,
         { path: '/', component: Base },
-        React.createElement(Route, { path: '/page1', component: Page1 }),
-        React.createElement(Route, { path: '/page2', component: Page2 })
+        React.createElement(Route, { path: '/news', component: News }),
+        React.createElement(Route, { path: '/photos', component: Photos })
     )
 );
 
 module.exports = Routes;
 
-},{"./components/Base.jsx":250,"./components/Page1.jsx":254,"./components/Page2.jsx":255,"history/lib/createHashHistory":35,"react":246,"react-router":77}],250:[function(require,module,exports){
-var React = require('react');
+},{"./pages/Base.jsx":252,"./pages/News.jsx":253,"./pages/Photos.jsx":254,"history/lib/createHashHistory":35,"react":246,"react-router":77}],250:[function(require,module,exports){
+let React = require('react');
 
-var Base = React.createClass({
-    displayName: 'Base',
+let NewsArticle = React.createClass({
+    displayName: "NewsArticle",
 
     render() {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'h1',
-                null,
-                'Header'
-            ),
-            this.props.children,
-            React.createElement('br', null),
-            React.createElement(
-                'h1',
-                null,
-                'Footer'
-            )
-        );
+        return React.createElement("section", { className: "news-article" });
     }
 });
 
-module.exports = Base;
+module.exports = NewsArticle;
 
 },{"react":246}],251:[function(require,module,exports){
 var React = require('react');
-var ListItem = require('./ListItem.jsx');
-
-var List = React.createClass({
-    displayName: 'List',
-
-    render() {
-        var listItems = this.props.items.map(item => React.createElement(ListItem, { key: Math.random(), text: item }));
-
-        return React.createElement(
-            'ul',
-            null,
-            listItems
-        );
-    }
-});
-
-module.exports = List;
-
-},{"./ListItem.jsx":252,"react":246}],252:[function(require,module,exports){
-var React = require('react');
-
-var ListItem = React.createClass({
-    displayName: 'ListItem',
-
-    render() {
-        return React.createElement(
-            'li',
-            null,
-            React.createElement(
-                'h4',
-                null,
-                this.props.text
-            )
-        );
-    }
-});
-
-module.exports = ListItem;
-
-},{"react":246}],253:[function(require,module,exports){
-var React = require('react');
-var List = require('./List.jsx');
-
-var ListManager = React.createClass({
-    displayName: 'ListManager',
-
-    getInitialState() {
-        return {
-            items: [],
-            newItemText: ''
-        };
-    },
-    handleSubmit(e) {
-        e.preventDefault();
-
-        var currentItems = this.state.items;
-        currentItems.push(this.state.newItemText);
-        this.setState({
-            items: currentItems,
-            newItemText: ''
-        });
-    },
-    onChange(e) {
-        this.setState({
-            newItemText: e.target.value
-        });
-    },
-    render() {
-
-        var divStyle = {
-            marginTop: 10
-        };
-
-        var headingStyle = {};
-
-        if (this.props.headingColor) {
-            headingStyle.background = this.props.headingColor;
-        }
-
-        return React.createElement(
-            'div',
-            { style: divStyle, className: 'col-sm-4' },
-            React.createElement(
-                'div',
-                { className: 'panel panel-primary' },
-                React.createElement(
-                    'div',
-                    { style: headingStyle, className: 'panel-heading' },
-                    React.createElement(
-                        'h3',
-                        null,
-                        this.props.title
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'row panel-body' },
-                    React.createElement(
-                        'form',
-                        { onSubmit: this.handleSubmit },
-                        React.createElement(
-                            'div',
-                            { className: 'col-sm-9' },
-                            React.createElement('input', { className: 'form-control', onChange: this.onChange,
-                                value: this.state.newItemText })
-                        ),
-                        React.createElement(
-                            'div',
-                            { className: 'col-sm-2' },
-                            React.createElement(
-                                'button',
-                                { className: 'btn btn-primary' },
-                                'Add'
-                            )
-                        )
-                    )
-                ),
-                React.createElement(List, { items: this.state.items })
-            )
-        );
-    }
-});
-
-module.exports = ListManager;
-
-},{"./List.jsx":251,"react":246}],254:[function(require,module,exports){
-var React = require('react');
-var ListManager = require('./ListManager.jsx');
-
-var Page1 = React.createClass({
-    displayName: 'Page1',
-
-    render() {
-        return React.createElement(ListManager, { title: 'Page 1' });
-    }
-});
-
-module.exports = Page1;
-
-},{"./ListManager.jsx":253,"react":246}],255:[function(require,module,exports){
-var React = require('react');
-var ListManager = require('./ListManager.jsx');
-
-var Page2 = React.createClass({
-    displayName: 'Page2',
-
-    render() {
-        return React.createElement(ListManager, { title: 'Page 2' });
-    }
-});
-
-module.exports = Page2;
-
-},{"./ListManager.jsx":253,"react":246}],256:[function(require,module,exports){
-var React = require('react');
 var ReactDOM = require('react-dom');
-//var ListManager = require('./components/ListManager.jsx');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(Routes, document.getElementById('main'));
 
-//ReactDOM.render(<ListManager title="Ingredients"/>, document.getElementById('ingredients'));
-//ReactDOM.render(<ListManager title="ToDo"/>, document.getElementById('todo'));
-//ReactDOM.render(<ListManager title="Christmas List" headingColor="#b31217"/>, document.getElementById('christmas'));
+},{"./Routes.jsx":249,"react":246,"react-dom":47}],252:[function(require,module,exports){
+var React = require('react');
+var Link = require('react-router').Link;
 
-},{"./Routes.jsx":249,"react":246,"react-dom":47}]},{},[256]);
+var Main = React.createClass({
+    displayName: 'Main',
+
+    render() {
+
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'header',
+                { id: 'header', className: 'header' },
+                React.createElement(
+                    'div',
+                    { className: 'container' },
+                    React.createElement(
+                        'h1',
+                        null,
+                        'Country News'
+                    ),
+                    React.createElement(
+                        'small',
+                        null,
+                        'Top stories in my country'
+                    )
+                )
+            ),
+            React.createElement(
+                'main',
+                { id: 'main-content' },
+                React.createElement(
+                    'div',
+                    { className: 'container' },
+                    React.createElement(
+                        'ul',
+                        { role: 'nav', className: 'links' },
+                        React.createElement(
+                            'li',
+                            null,
+                            React.createElement(
+                                Link,
+                                { to: '/news', className: 'link' },
+                                'News'
+                            )
+                        ),
+                        React.createElement(
+                            'li',
+                            null,
+                            React.createElement(
+                                Link,
+                                { to: '/photos', className: 'link' },
+                                'Photos'
+                            )
+                        )
+                    ),
+                    this.props.children
+                )
+            )
+        );
+    }
+});
+
+module.exports = Main;
+
+},{"react":246,"react-router":77}],253:[function(require,module,exports){
+var React = require('react');
+let NewsArticle = require('./../components/NewsArticle.jsx');
+
+var News = React.createClass({
+    displayName: 'News',
+
+    getInitialState() {
+        return {
+            news: [{
+                author: 'Fred',
+                header: 'Obesity in America',
+                subheader: 'Why are Americans so fat?',
+                mainText: 'Us Americans are fat. On every corner there is a McDonalds or KFC Michelle Obama wants Americans to become Vegan. Civil war and unrest have sprung up due to this debate...',
+                imgs: [],
+                location: 'Kentucky, USA'
+            }]
+        };
+    },
+
+    render() {
+        let news = this.state.news.map((e, ind) => React.createElement(NewsArticle, { info: e, key: ind }));
+
+        return React.createElement(
+            'h1',
+            null,
+            'News ',
+            news
+        );
+    }
+});
+
+module.exports = News;
+
+},{"./../components/NewsArticle.jsx":250,"react":246}],254:[function(require,module,exports){
+var React = require('react');
+
+var Photos = React.createClass({
+    displayName: 'Photos',
+
+    render() {
+        return React.createElement(
+            'h1',
+            null,
+            'Photos'
+        );
+    }
+});
+
+module.exports = Photos;
+
+},{"react":246}]},{},[251]);

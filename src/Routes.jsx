@@ -7,15 +7,15 @@ var createHashHistory = require('history/lib/createHashHistory');
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
-var Base = require('./components/Base.jsx');
-var Page1 = require('./components/Page1.jsx');
-var Page2 = require('./components/Page2.jsx');
+var Base = require('./pages/Base.jsx');
+var News = require('./pages/News.jsx');
+var Photos = require('./pages/Photos.jsx');
 
 var Routes = (
     <Router history={appHistory}>
         <Route path="/" component={Base}>
-            <Route path="/page1" component={Page1}/>
-            <Route path="/page2" component={Page2}/>
+            <Route path="/news" component={News}/>
+            <Route path="/photos" component={Photos}/>
         </Route>
     </Router>
 );

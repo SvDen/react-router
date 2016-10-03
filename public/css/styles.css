@@ -1,0 +1,27 @@
+#header {
+    background-color: #3b5998;
+    height: 200px;
+    color: white;
+}
+
+#main-content {
+    margin-top: -80px;
+}
+
+.links {
+    float: right;
+    text-transform: uppercase;
+    font-size: 16px;
+    list-style: none;
+}
+
+.links li {
+    display: inline-block;
+}
+
+.link {
+    margin-left: 10px;
+    text-underline: none;
+    color: white;
+    font-weight: 700;
+}
