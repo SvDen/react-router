@@ -1,3 +1,7 @@
+body {
+    background-color: #9d9d9d;
+}
+
 #header {
     background-color: #3b5998;
     height: 200px;
@@ -23,5 +27,27 @@
     margin-left: 10px;
     text-underline: none;
     color: white;
+    font-weight: 400;
+}
+
+.link:hover {
     font-weight: 700;
+}
+
+.news-article {
+    background-color: white;
+    padding: 10px;
+}
+
+.news-article .avatar {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.news-article .images img {
+    margin-right: 10px;
+}
+
+.news-article .location {
+    font-size: 16px;
 }

@@ -26948,7 +26948,50 @@ let NewsArticle = React.createClass({
     displayName: "NewsArticle",
 
     render() {
-        return React.createElement("section", { className: "news-article" });
+        let images = this.props.info.imgs.map((e, ind) => React.createElement("img", { key: ind, src: e, alt: "", height: "100" }));
+
+        return React.createElement(
+            "section",
+            { className: "news-article container" },
+            React.createElement(
+                "div",
+                { className: "row" },
+                React.createElement(
+                    "div",
+                    { className: "avatar col-sm-3" },
+                    React.createElement("img", { height: "100", width: "100", src: this.props.info.avatar, alt: "avatar" })
+                ),
+                React.createElement(
+                    "div",
+                    { className: "col-sm-9" },
+                    React.createElement(
+                        "h1",
+                        null,
+                        this.props.info.header,
+                        React.createElement(
+                            "div",
+                            { className: "small" },
+                            this.props.info.subheader
+                        )
+                    ),
+                    React.createElement(
+                        "p",
+                        { className: "mainText" },
+                        this.props.info.mainText
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "images" },
+                        images
+                    ),
+                    React.createElement(
+                        "p",
+                        { className: "location" },
+                        this.props.info.location
+                    )
+                )
+            )
+        );
     }
 });
 
@@ -27039,10 +27082,11 @@ var News = React.createClass({
         return {
             news: [{
                 author: 'Fred',
+                avatar: 'http://oboibox.ru/avatar/Odnoglazyy-Bak(oboibox.ru).jpg',
                 header: 'Obesity in America',
                 subheader: 'Why are Americans so fat?',
                 mainText: 'Us Americans are fat. On every corner there is a McDonalds or KFC Michelle Obama wants Americans to become Vegan. Civil war and unrest have sprung up due to this debate...',
-                imgs: [],
+                imgs: ['http://i.bigmir.net/img/dnevnik/uploads/cmu_1153/29306/1.jpg', 'http://nakolenke.club/uploads/posts/2016-09/1473248821_kotiki04.jpg'],
                 location: 'Kentucky, USA'
             }]
         };
@@ -27054,7 +27098,6 @@ var News = React.createClass({
         return React.createElement(
             'h1',
             null,
-            'News ',
             news
         );
     }
